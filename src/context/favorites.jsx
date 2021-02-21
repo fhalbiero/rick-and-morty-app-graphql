@@ -6,22 +6,30 @@ const storageKey = '@RickMortyApp';
 
 const FavoritesProvider = ({ children }) => {
 
-    const [ favorites, setFavorites ] = useState([]);
+    const [ favorites, setFavorites ] = useState({});
 
     useEffect(() => {
         const characters = JSON.parse(localStorage.getItem(storageKey));
-        setFavorites(characters || []);
+        setFavorites(characters || {});
     }, [])
 
+
     const addToFavorites = (character) => {
-        localStorage.setItem(storageKey, JSON.stringify([...favorites, character]));
-        setFavorites([...favorites, character]);
+        if (!favorites[character.id]) {
+            favorites[character.id] = character;
+        }
+
+        localStorage.setItem(storageKey, JSON.stringify({...favorites}));
+        setFavorites({...favorites});
     }
 
+    
     const removeFromFavorites = (id) => {
-        const newFavorites = favorites.filter( favorite => favorite.id !== id);
-        localStorage.setItem(storageKey, [...newFavorites]);
-        setFavorites([...newFavorites]);
+        if (favorites[id]) {
+            delete favorites[id];
+        }
+        localStorage.setItem(storageKey, JSON.stringify({...favorites}));
+        setFavorites({...favorites});
     }
 
     return (

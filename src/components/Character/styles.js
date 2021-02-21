@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-    perspective: 1000px; 
 
-    &:hover .card-container {
-        transform: rotateY(180deg);
-    }
+
+export const Container = styled.div`
+    perspective: 1000px;
 
     .card-container {
         position: relative;       
-        width: 320px;
+        width: 280px;
         height: 363px;
-        margin: 26px;
+        margin: 16px;
         transition: transform .4s;
         transform-style: preserve-3d;
+
+        ${ ({ showCardBack }) => showCardBack && `transform: rotateY(180deg);`} 
     }
 
     
@@ -23,12 +23,11 @@ export const Container = styled.div`
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        border-radius: 10px;
+        border-radius: 4px;
         box-shadow: rgba(0,0,0,.3) 8px 8px 16px;
 
         width: 100%;
         height: 100%;
-        padding: 26px;
         backface-visibility: hidden;
     }
 
@@ -37,10 +36,10 @@ export const Container = styled.div`
         padding: 26px;
 
         h2 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 500;
             color: #fff;
-            padding-top: 8px;
+            padding: 10px 0;
         }
 
         span {
@@ -52,23 +51,59 @@ export const Container = styled.div`
         }
 
         img {
-            margin-top: 20px;
-            height: 280px;
+            width: 258px;
+            margin-top: 0px;
         }
 
 
-        .heart {
+        .favorite-btn {
             position: absolute;
-            top: 26px;
-            left: 26px;
-            font-size: 20px;
-            color: #e85355;
+            top: 16px;
+            right: 16px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+
+            svg {
+                font-size: 26px;
+                color: rgba(255, 255, 255, 0.7);
+
+                ${ ({ isFavorite }) => isFavorite && `color: #e60d23;`} 
+                
+                transition: all 0.2s ease;
+
+                &:hover {
+                    font-size: 28px;
+                    color: rgba(255, 255, 255, 1);
+                }
+            }
+        }
+
+
+        .more-info-btn {
+            background-color: #ffcd00;
+            font-size: 16px;
+            border: none;
+            padding: 8px 26px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border-radius: 4px;
+
+            svg {
+                font-size: 14px; 
+                margin-right: 8px;   
+            }
+
+            &:hover {
+                opacity: 0.8;
+            }
         }
     }
 
     .card-back {
-        transform: rotateY(180deg);
+        transform: rotateY(-180deg);
         background: #242a33;
+        padding: 16px;
         color: #fff;
         align-items: flex-start;
         
@@ -80,6 +115,7 @@ export const Container = styled.div`
 
         .span-episodes {
             margin-top: 16px;
+            color: #fff;
         }
 
         h4 {
@@ -93,37 +129,50 @@ export const Container = styled.div`
             width: 100%;
             margin-top: 8px;
             overflow: overlay;
-            background: #015356;
+            background: #9f9f9f;
+            padding: 3px 7px;
 
             ul {
                 background-color: transparent;
                 height: 128px;
                 text-align: left;
+                color: #141a19;
+
+                scrollbar-color: #000;
 
                 li {
                     list-style: none;
                 }
             }
 
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
+            
+            &::-webkit-scrollbar-track {
+                background-color: rgba(39, 39, 49, 0.3);
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(39, 39, 49, 0.5);
+            }
         }
 
-        .favorite-btn {
+        .return-btn {
             position: absolute;
             top: 16px;
-            right: 16px;
+            left: 16px;
             background-color: transparent;
             border: none;
             cursor: pointer;
-            //transition: 0.4s cubic-bezier(1, -1, 0, 2);
 
             svg {
-                font-size: 26px;
+                font-size: 18px;
                 color: rgba(255, 255, 255, 0.5);
                 
                 transition: all 0.4s ease;
 
                 &:hover {
-                    font-size: 32px;
                     color: rgba(255, 255, 255, 1);
                 }
             }

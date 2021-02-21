@@ -1,34 +1,34 @@
-import React from 'react';
-import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import React, { useEffect } from 'react';
+import ReactLoading from "react-loading";
 
 import Character from '../../components/Character';
+import { useCharacters } from '../../context/characters';
+import { useRouterContext } from '../../context/route' ;
 
-import { Container } from './styles';
+import { Container, SpinnerContainer } from './styles';
 
-const mainQuery = gql`
-query {
-      characters(page: 0, filter: { name: "" }) {
-          info { count, pages, next, prev }
-          results {
-              id, name, image, species, type, status, gender,
-              location{ id, name }
-              episode { id, name }
-          }
-      }
-    }  
-
-`;
 
 function Home() {
 
+  const { error, loading, data } = useCharacters();
+  const { setCurrentRoute } = useRouterContext();
 
-  const { data, error, loading, fetchMore } = useQuery(mainQuery);
+  useEffect( () => {
+    setCurrentRoute('home');
+  }, []);
 
-  if (error) return <div><span>{ error.message }</span></div>
 
-  if (loading || !data) return <div>Loading...</div>
-  
+  if (error) {
+    return <spa>{ error.message}</spa>
+  }
+
+  if (loading || !data) {
+    return (
+      <SpinnerContainer>
+        <ReactLoading type={"bubbles"} color="#fff" width="186px" />
+      </SpinnerContainer>
+    )
+  }
 
   const { characters } = data;
   
@@ -36,7 +36,7 @@ function Home() {
   return ( 
       <Container>
         <main>
-            { characters.results.map( character => <Character character={character} /> ) }   
+            { characters.results.map( character => <Character character={character} /> )}  
         </main> 
       </Container>
   );

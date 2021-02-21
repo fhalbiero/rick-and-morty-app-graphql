@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import { FavoritesProvider } from './context/favorites';
-import { CharactersProvider } from './context/characters';
+import ContextProvider from './context';
 
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -12,13 +11,11 @@ function App() {
 
   return (
       <BrowserRouter>
-        <FavoritesProvider>
-          <CharactersProvider>  
-            <Navbar />
-            <Route exact path='/' component={Home} />
-            <Route exact path='/favorites' component={Favorites} />
-          </CharactersProvider>  
-        </FavoritesProvider>
+        <ContextProvider>
+          <Navbar />
+          <Route exact path='/' component={Home} />
+          <Route exact path='/favorites' component={Favorites} />
+        </ContextProvider>
       </BrowserRouter>
   );
 }

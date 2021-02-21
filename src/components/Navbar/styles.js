@@ -35,6 +35,11 @@ export const Container = styled.nav`
             svg {
                 color: #909090;
                 font-size: 26px;
+                transition: all ease .3s;
+
+                &:hover {
+                    color: #f0f0f0;  
+                }
             }
 
         }

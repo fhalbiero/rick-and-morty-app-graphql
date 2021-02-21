@@ -24,3 +24,12 @@ export const Container = styled.div`
     }
     
 `;
+
+
+export const SpinnerContainer = styled.div`
+        display: flex;
+        width: 100%;
+        height: 90vh;
+        align-items: center;
+        justify-content: center;
+`;

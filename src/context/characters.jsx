@@ -1,23 +1,63 @@
-import { useState, createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
 
 const CharactersContext = createContext({});
 
+const CHARACTERS = gql`
+        query get($page: Int) {
+            characters(page: $page, filter: { name: "" }) {
+                info { count, pages, next, prev }
+                results {
+                    id, name, image, species, type, status, gender,
+                    location{ id, name }
+                    episode { id, name }
+                }
+            }
+        }  
+
+    `;
 
 const CharactersProvider = ({ children }) => {
 
-    const [ characters, setCharacters ] = useState([]);
+    const { data, error, loading, fetchMore } = useQuery(CHARACTERS, { 
+        variables: { page: 1 }
+    });
 
-    const addToCharacters = (character) => {
-         setCharacters([...characters, character]);
+
+    async function handleNextPage() {
+        if (data) {
+            const nextPage = data.characters.info.next;
+
+            if (!nextPage) return;
+
+            return fetchMore({ 
+                variables: { page: nextPage },
+                updateQuery: ( prev, { fetchMoreResult } ) => {
+                    return fetchMoreResult;
+                }             
+            });
+        }
     }
 
-    const removeFromCharacters = (id) => {
-        const newCharacters = characters.filter( favorite => favorite.id !== id);
-        setCharacters([...newCharacters]);
+    async function handlePreviewPage() {
+        if (data) {
+            const prevPage = data.characters.info.prev;
+
+            if (!prevPage) return;
+
+            return fetchMore({ 
+                variables: { page: prevPage },
+                updateQuery: ( prev, { fetchMoreResult } ) => {
+                    return fetchMoreResult;
+                }             
+            });
+        }
     }
+
 
     return (
-        <CharactersContext.Provider value={{ characters, addToCharacters, removeFromCharacters }} >
+        <CharactersContext.Provider value={{ data, error, loading, handleNextPage, handlePreviewPage }} >
             { children }
         </CharactersContext.Provider>
     )
