@@ -1,6 +1,6 @@
-<h1 align="center">Crwn Clothing<h1>
+<h1 align="center">Rick and Morty<h1>
 
-<h1> <img src="public/img/screen.png" alt=""> 
+<img src="public/img/screen.png" alt=""> 
 
 # Indice
 - [About](#-about)
