@@ -34,7 +34,7 @@ The project was developed using the following technologies:
 ```bash
 
     #Clone repository
-    $ git clone https://github.com/rick-and-morty-app-graphql
+    $ git clone https://github.com/fhalbiero/rick-and-morty-app-graphql.git
 
     #Enter the project folder
     cd rick-and-morty-app-graphql

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import ReactLoading from "react-loading";
 
 import Character from '../../components/Character';
 import { useCharacters } from '../../context/characters';
@@ -25,7 +24,7 @@ function Home() {
   if (loading || !data) {
     return (
       <SpinnerContainer>
-        <ReactLoading type={"bubbles"} color="#fff" width="186px" />
+        
       </SpinnerContainer>
     )
   }
