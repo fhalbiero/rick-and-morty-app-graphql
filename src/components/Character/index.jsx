@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { FaHeart, FaInfo, FaArrowLeft } from 'react-icons/fa';
+import { FiTrash2 } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 
 import { useFavorites } from '../../context/favorites';
-
-import { FaHeart, FaInfo, FaArrowLeft } from 'react-icons/fa';
-import { FiTrash2 } from 'react-icons/fi';
 import { Container } from './styles';
 import { useRouterContext } from '../../context/route';
 
